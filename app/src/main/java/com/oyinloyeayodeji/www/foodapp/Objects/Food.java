@@ -14,6 +14,10 @@ public class Food implements Serializable{
     private int mAmount;
     private int mQuantity;
 
+    public void setmQuantity(int mQuantity) {
+        this.mQuantity = mQuantity;
+    }
+
     public Food(){}
 
     public Food(String mImageUrl, String mName, String mDescription, int mAmount) {

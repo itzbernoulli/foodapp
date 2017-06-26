@@ -1,6 +1,7 @@
 package com.oyinloyeayodeji.www.foodapp;
 
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 public class MyMealsActivity extends AppCompatActivity {
 
     Button addMeal, checkOut;
-    TextView mealTotalText;
+    TextView mealTotalText,removeMeal;
 
     ArrayList<Food> orders;
     String chosenCategory;
@@ -78,8 +79,8 @@ public class MyMealsActivity extends AppCompatActivity {
         OrderAdapter adapter = new OrderAdapter(this, orders);
 
         storedOrders.setAdapter(adapter);
-
-        mealTotalText.setText("GH"+"\u20B5"+" "+ calculateMealTotal());
+//        mealTotalText.setText("GH"+"\u20B5"+" "+ calculateMealTotal());
+        adapter.registerDataSetObserver(observer);
     }
 
     public int calculateMealTotal(){
@@ -94,4 +95,12 @@ public class MyMealsActivity extends AppCompatActivity {
         orderNumber.add(orderNumber.size()+1);
         return orderNumber.get(orderNumber.size()-1);
     }
+
+    DataSetObserver observer = new DataSetObserver() {
+        @Override
+        public void onChanged() {
+            super.onChanged();
+            mealTotalText.setText("GH"+"\u20B5"+" "+ calculateMealTotal());
+        }
+    };
 }

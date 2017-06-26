@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.oyinloyeayodeji.www.foodapp.Objects.Food;
 import com.oyinloyeayodeji.www.foodapp.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,11 +22,17 @@ import java.util.List;
  */
 
 public class OrderAdapter extends ArrayAdapter<Food>{
+    private List<Food> list;
+    private Context context;
+
     public OrderAdapter(Context context, List<Food> myOrders) {
         super(context, 0, myOrders);
+        this.list = myOrders;
+        this.context = context;
     }
 
-    public View getView(int position, View convertView, ViewGroup parent){
+
+    public View getView(final int position, View convertView, ViewGroup parent){
         View listItemView = convertView;
         if(listItemView == null){
             listItemView = LayoutInflater.from(getContext()).inflate(
@@ -52,6 +59,7 @@ public class OrderAdapter extends ArrayAdapter<Food>{
                 currentFood.addToQuantity();
                 quantityText.setText("x "+currentFood.getmQuantity());
                 currentCost.setText("GH"+"\u20B5"+" "+ (currentFood.getmAmount() * currentFood.getmQuantity()));
+                notifyDataSetChanged();
             }
         });
 
@@ -62,26 +70,19 @@ public class OrderAdapter extends ArrayAdapter<Food>{
                 currentFood.removeFromQuantity();
                 quantityText.setText("x "+currentFood.getmQuantity());
                 currentCost.setText("GH"+"\u20B5"+" "+ (currentFood.getmAmount() * currentFood.getmQuantity()));
-
+                notifyDataSetChanged();
             }
         });
 
-//        quantityText.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-//
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable editable) {
-//
-//            }
-//        });
+        TextView removeMeal = (TextView)listItemView.findViewById(R.id.delete_item);
+        removeMeal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                list.remove(position);
+                notifyDataSetChanged();
+            }
+        });
+
         return listItemView;
     }
 }

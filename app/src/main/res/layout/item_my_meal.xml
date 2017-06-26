@@ -51,4 +51,14 @@
         tools:text="455"
         android:layout_gravity="center_vertical"
         android:id="@+id/selected_food_amount"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="3dp"
+        android:layout_margin="3dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/rectangle_border"
+        android:drawableLeft="@drawable/ic_close"
+        android:id="@+id/delete_item"/>
 </LinearLayout>
